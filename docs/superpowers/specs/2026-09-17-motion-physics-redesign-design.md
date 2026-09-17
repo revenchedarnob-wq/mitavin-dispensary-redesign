@@ -68,20 +68,21 @@ $$\ddot{x} + 2\zeta\omega_0 \dot{x} + \omega_0^2 x = 0$$
   - Line 1 (`"THE AUTHENTIC"`): Translates $-80\text{px}$ on desktop (clamped to $-25\text{px}$ on mobile) via `useScroll`.
   - Line 2 (`"DISPENSARY."`): Translates $+80\text{px}$ on desktop (clamped to $+25\text{px}$ on mobile) via `useScroll`.
   - Both smoothed with `useSpring({ stiffness: 100, damping: 30 })`.
-- **3-Pillar 3D Floating Swapper**:
-  - Replaces the boxed card on the right.
+- **3-Pillar 3D Floating Sculpture Swapper (Apple/GiGi Standard)**:
+  - Replaces the boxed thumbnail card with a monumental, free-floating transparent product sculpture resting on an elastic dynamic ambient ground shadow plane.
   - Three switchable pillars:
-    1. **Pediatric Gold**: Aptamil Gold+ Stage 1 Infant Formula (Amber aura, London $\to$ Dhaka flight tag, $2^\circ\text{C}-8^\circ\text{C}$ tag, ৳4,200).
-    2. **Cellular Longevity**: NMN 500mg Pure Trans-Resveratrol (Cyan aura, 99.8% Purity tag, NAD+ tag, ৳3,850).
-    3. **Clinical Dermatology**: CeraVe Moisturizing Cream (Mint aura, 3 Bio-Ceramides tag, Tamper Seal tag, ৳2,150).
-  - Multi-layer `translateZ` staging:
-    - Aura: $Z = 0\text{px}$
-    - Text & Price: $Z = 30\text{px}$
-    - Product Cutout: $Z = 60\text{px}$
-    - Hotspot Pins: $Z = 85\text{px}$
-  - Deck-Flip transition with $15^\circ$ Y-axis rotation on entry/exit.
-  - Quick Specs flip button revealing batch code, telemetry status, and shelf-life.
-  - Touch-swipe support on mobile using `drag="x"`.
+    1. **Pediatric Gold**: Aptamil Gold+ Stage 1 Infant Tin (900g). Floating golden DHA Omega-3 droplet micro-element, London LHR $\to$ DAC flight tag, Amber aura (`rgba(245, 158, 11, 0.12)`), ৳4,200.
+    2. **Cellular Longevity**: NMN 500mg Pure Trans-Resveratrol (Amber Glass Apothecary Vial). Cellular NAD+ molecule micro-element, $2^\circ\text{C}-8^\circ\text{C}$ sensor tag, Cyan aura (`rgba(6, 182, 212, 0.12)`), ৳3,850.
+    3. **Clinical Dermatology**: CeraVe Bio-Ceramide Moisturizing Cream (Clinical Dispenser). Purified moisture droplet micro-element, NHS Tamper-Seal verification tag, Mint aura (`rgba(16, 185, 129, 0.12)`), ৳2,150.
+  - **Multi-Layer `translateZ` Spatial Staging**:
+    - Ambient Aura & Ground Shadow: $Z = 0\text{px}$ (shadow squashes and stretches dynamically with tilt)
+    - Metadata & Pricing: $Z = 30\text{px}$
+    - Transparent Product Sculpture: $Z = 65\text{px}$ (floats forward with studio rim light reflection)
+    - Floating Interactive Hotspot Pins: $Z = 90\text{px}$ (tethered to cap and base with pulsing status beacons: `[ Tamper-Evident Foil Seal Intact ]`, `[ Batch Expiry: Nov 2027 • Serial Verified ]`)
+  - **Gesture & Deck-Flip Physics**:
+    - $15^\circ$ Y-axis rotation on entry/exit transitions (`stiffness: 300, damping: 30`).
+    - Touchscreen drag physics (`drag="x"`) with elastic boundary return on mobile.
+    - Quick Specs flip toggle revealing real-time lot certificate and telemetry logs.
 
 ### 3.3 `src/components/ProductCard.tsx` (Enhanced Component)
 - **3D Spatial Tilt**:
