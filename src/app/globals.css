@@ -5,44 +5,44 @@
 @layer base {
   :root {
     /* ============================================================
-       OKLCH COLOR ENGINE: Editorial Organic Health (Mitavin Redesign)
-       Travertine porcelain canvas with clinical emerald & champagne seals
+       VERCEL-INSPIRED DESIGN SYSTEM (Mitavin Overhaul)
+       Stark, minimalist luxury: Pure white canvas, deep ink, hairline borders
        ============================================================ */
-    --bg-canvas: oklch(0.985 0.006 85);       /* Warm Travertine Canvas #FAF9F5 */
-    --bg-card: oklch(1.0 0 0);                /* Pure White */
-    --bg-card-muted: oklch(0.975 0.008 85);   /* Subtly warmed travertine tile */
+    --bg-canvas: #FFFFFF;
+    --bg-canvas-soft: #FAFAFA;
+    --bg-canvas-soft-2: #F5F5F5;
+    --bg-card: #FFFFFF;
     
-    --border-whisper: oklch(0.92 0.008 85);   /* Hairline separator */
-    --border-subtle: oklch(0.88 0.012 85);    /* Interactive card border */
-    --border-strong: oklch(0.78 0.015 85);    /* Emphasized structural border */
+    --border-hairline: #E5E7EB;
+    --border-subtle: #D4D4D8;
+    --border-strong: #71717A;
 
-    --ink-primary: oklch(0.18 0.02 240);      /* Deep Slate Ink */
-    --ink-muted: oklch(0.48 0.015 240);       /* Refined Charcoal */
-    --ink-faint: oklch(0.68 0.012 240);       /* Secondary metadata */
+    --ink-primary: #171717;
+    --ink-muted: #737373;
+    --ink-faint: #A1A1AA;
     
-    --brand-emerald: oklch(0.64 0.18 155);        /* Clinical Wellness Green */
-    --brand-emerald-light: oklch(0.93 0.05 155);  /* Subtle green pill tint */
-    --brand-emerald-subtle: oklch(0.97 0.02 155); /* Hover wash */
+    --brand-emerald: #10B981;
+    --brand-emerald-light: #ECFDF5;
+    --brand-emerald-subtle: #F0FDF4;
     
-    --brand-champagne: oklch(0.82 0.12 85);       /* Authentic Seal Gold */
-    --brand-champagne-light: oklch(0.95 0.04 85); /* Seal backdrop */
-    --brand-champagne-glow: oklch(0.88 0.14 85);  /* Radiant glow accent */
+    --brand-blue: #0070F3;
+    --brand-blue-light: #EFF6FF;
 
-    --scarcity-crimson: oklch(0.62 0.22 25);      /* Urgent Scarcity Pill */
-    --scarcity-subtle: oklch(0.96 0.03 25);       /* Scarcity badge background */
+    --scarcity-crimson: #EF4444;
+    --scarcity-subtle: #FEF2F2;
 
-    /* Typography scale & metrics */
-    --font-serif: "Instrument Serif", "Playfair Display", Georgia, serif;
-    --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    /* Typography metrics: 100% Sans */
+    --font-sans: "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   }
 
   * {
-    border-color: var(--border-whisper);
+    border-color: var(--border-hairline);
   }
 
   html {
-    background-color: var(--bg-canvas);
-    color: var(--ink-primary);
+    background-color: #FFFFFF;
+    color: #171717;
     font-family: var(--font-sans);
     scroll-behavior: smooth;
     text-rendering: optimizeLegibility;
@@ -51,99 +51,78 @@
   }
 
   body {
-    background-color: var(--bg-canvas);
-    color: var(--ink-primary);
+    background-color: #FFFFFF;
+    color: #171717;
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
   }
 
-  /* Smooth Custom Selection */
+  /* Vercel Dark Ink Selection */
   ::selection {
-    background-color: oklch(0.92 0.06 155);
-    color: oklch(0.18 0.02 240);
+    background-color: #171717;
+    color: #FFFFFF;
   }
 
-  /* Custom Luxury Scrollbar */
+  /* Minimalist Vercel Scrollbar */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
   }
 
   ::-webkit-scrollbar-track {
-    background: var(--bg-canvas);
+    background: #FAFAFA;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: oklch(0.85 0.01 85);
+    background: #D4D4D8;
     border-radius: 9999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--brand-emerald);
+    background: #71717A;
   }
 
-  /* Firefox Scrollbar */
   * {
     scrollbar-width: thin;
-    scrollbar-color: oklch(0.85 0.01 85) var(--bg-canvas);
+    scrollbar-color: #D4D4D8 #FAFAFA;
   }
 }
 
-/* Master Z-Index System (Hierarchy Directive 5) */
+/* Master Z-Index System */
 .z-canvas { z-index: 0; }
 .z-content { z-index: 10; }
 .z-nav { z-index: 30; }
-.z-grain { z-index: 40; }
-.z-cursor { z-index: 50; }
 .z-modal { z-index: 60; }
 
-/* Tactile Micro-Film Grain */
-.film-grain {
-  pointer-events: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 40;
-  opacity: 0.028;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-}
-
-/* Luxury Utility Classes */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 
-  .glass-travertine {
-    background: color-mix(in oklch, var(--bg-canvas) 82%, transparent);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--border-whisper);
+  /* Vercel Card Chrome */
+  .vercel-card {
+    background-color: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .glass-card {
-    background: color-mix(in oklch, var(--bg-card) 92%, transparent);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--border-whisper);
+  .vercel-card:hover {
+    border-color: #D4D4D8;
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.06);
   }
 
-  .seal-shimmer {
-    background: linear-gradient(
-      110deg,
-      oklch(0.82 0.12 85) 0%,
-      oklch(0.93 0.14 85) 45%,
-      oklch(0.82 0.12 85) 90%
-    );
-    background-size: 200% 100%;
-    animation: sealShimmer 6s ease-in-out infinite;
+  /* Vercel Glass Header */
+  .vercel-glass {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(229, 231, 235, 0.8);
   }
-}
 
-@keyframes sealShimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  /* Vercel Minimalist Atmospheric Backdrop */
+  .vercel-mesh-gradient {
+    background: radial-gradient(circle at 50% 0%, rgba(0, 112, 243, 0.04) 0%, rgba(16, 185, 129, 0.03) 40%, transparent 70%);
+  }
 }

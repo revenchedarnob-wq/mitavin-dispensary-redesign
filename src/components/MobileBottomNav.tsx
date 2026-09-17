@@ -63,44 +63,44 @@ export function MobileBottomNav({
   };
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-nav bg-card/90 backdrop-blur-xl border-t border-whisper px-3 py-2 safe-area-bottom shadow-floating">
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-nav bg-white/90 backdrop-blur-md border-t border-zinc-200 px-2 py-1.5 safe-area-bottom shadow-lg">
       <div className="flex items-center justify-around max-w-md mx-auto">
         {/* Home */}
         <button
           onClick={handleHome}
-          className="flex flex-col items-center justify-center min-w-[56px] h-12 text-ink-muted hover:text-ink-primary active:scale-95 transition-all"
+          className="flex flex-col items-center justify-center min-w-[56px] h-12 text-zinc-500 hover:text-zinc-950 active:scale-95 transition-all"
         >
-          <Home className="w-5 h-5" />
+          <Home className="w-4 h-4" />
           <span className="text-[10px] font-medium mt-0.5">Home</span>
         </button>
 
-        {/* Categories */}
+        {/* Catalog */}
         <button
           onClick={handleCategories}
-          className="flex flex-col items-center justify-center min-w-[56px] h-12 text-ink-muted hover:text-ink-primary active:scale-95 transition-all"
+          className="flex flex-col items-center justify-center min-w-[56px] h-12 text-zinc-500 hover:text-zinc-950 active:scale-95 transition-all"
         >
-          <LayoutGrid className="w-5 h-5" />
+          <LayoutGrid className="w-4 h-4" />
           <span className="text-[10px] font-medium mt-0.5">Catalog</span>
         </button>
 
         {/* Search */}
         <button
           onClick={handleSearch}
-          className="flex flex-col items-center justify-center min-w-[56px] h-12 text-ink-muted hover:text-ink-primary active:scale-95 transition-all"
+          className="flex flex-col items-center justify-center min-w-[56px] h-12 text-zinc-500 hover:text-zinc-950 active:scale-95 transition-all"
         >
-          <Search className="w-5 h-5" />
+          <Search className="w-4 h-4" />
           <span className="text-[10px] font-medium mt-0.5">Search</span>
         </button>
 
-        {/* Cart with Live Count */}
+        {/* Cart */}
         <button
           onClick={handleCart}
-          className="relative flex flex-col items-center justify-center min-w-[56px] h-12 text-ink-muted hover:text-ink-primary active:scale-95 transition-all"
+          className="relative flex flex-col items-center justify-center min-w-[56px] h-12 text-zinc-500 hover:text-zinc-950 active:scale-95 transition-all"
         >
           <div className="relative">
-            <ShoppingBag className="w-5 h-5" />
+            <ShoppingBag className="w-4 h-4" />
             {totalItems > 0 && (
-              <span className="absolute -top-1.5 -right-2 flex items-center justify-center min-w-[16px] h-[16px] px-1 rounded-full bg-brand-emerald text-white text-[9px] font-bold">
+              <span className="absolute -top-1 -right-2 flex items-center justify-center min-w-[15px] h-[15px] px-1 rounded-full bg-zinc-950 text-white text-[9px] font-bold">
                 {totalItems}
               </span>
             )}
@@ -108,14 +108,13 @@ export function MobileBottomNav({
           <span className="text-[10px] font-medium mt-0.5">Cart</span>
         </button>
 
-        {/* WhatsApp Pharmacist Consultation */}
+        {/* WhatsApp */}
         <button
           onClick={handleWhatsApp}
-          className="flex flex-col items-center justify-center min-w-[56px] h-12 text-emerald-700 active:scale-95 transition-all"
-          title="Consult on WhatsApp"
+          className="flex flex-col items-center justify-center min-w-[56px] h-12 text-emerald-600 active:scale-95 transition-all"
         >
-          <MessageCircle className="w-5 h-5 text-brand-emerald fill-brand-emerald/20" />
-          <span className="text-[10px] font-bold mt-0.5 text-brand-emerald">Pharmacist</span>
+          <MessageCircle className="w-4 h-4 fill-emerald-600/10" />
+          <span className="text-[10px] font-bold mt-0.5">Help</span>
         </button>
       </div>
     </div>

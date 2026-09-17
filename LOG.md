@@ -125,3 +125,15 @@ The adapter abstracts all data queries:
   - Integrated `SmoothScroll.tsx` utilizing Lenis for luxury 120 FPS momentum scrolling.
   - Assembled comprehensive homepage `src/app/page.tsx` including cold-chain transparency section, physician testimonials carousel, and clinical footer.
 
+- **v0.3.0 (Vercel & Linear Design Overhaul)**:
+  - Completely eradicated doctor clinic aesthetics, dusty travertine beige, and serif fonts.
+  - Implemented crisp Vercel & Linear design language per `DESIGN.md` and `web-design-guidelines`:
+    - Canvas: Pure Crisp White `#FFFFFF` with `#FAFAFA` cards.
+    - Typography: 100% Inter / Geist modern sans-serif with negative kerning.
+    - Hairline Borders: Razor-sharp 1px `#E5E7EB` / `border-zinc-200`.
+    - Text: Deep Ink `#171717` headings, Slate `#737373` body.
+    - Accents: High-precision Emerald `#10B981` beacon and stark black `#171717` primary CTAs.
+  - Replaced doctor testimonials with high-tech 4-step "Provenance Standard & Authenticity Guarantee" interactive banner.
+  - Enhanced Header, ProductCard, CategoryFilterBar, CartDrawer, and CheckoutModal with Vercel UI styling.
+
+

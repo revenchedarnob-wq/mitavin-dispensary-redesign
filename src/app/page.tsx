@@ -1,22 +1,20 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import Image from "next/image";
 import {
   ShieldCheck,
   Plane,
   ThermometerSnowflake,
   Sparkles,
-  AlertTriangle,
-  CheckCircle2,
   PhoneCall,
   Mail,
   MapPin,
-  Star,
-  Quote,
-  ChevronLeft,
-  ChevronRight,
   Lock,
+  ArrowRight,
+  CheckCircle2,
+  FileCheck,
+  Barcode,
+  Truck,
 } from "lucide-react";
 import { Header } from "@/components/Header";
 import { HeroBanner } from "@/components/HeroBanner";
@@ -26,64 +24,21 @@ import { CartDrawer } from "@/components/CartDrawer";
 import { CheckoutModal } from "@/components/CheckoutModal";
 import { QuickViewModal } from "@/components/QuickViewModal";
 import { MobileBottomNav } from "@/components/MobileBottomNav";
-import { PRODUCTS, Product, CATEGORIES } from "@/data/products";
-import { playHapticClick } from "@/lib/sound";
+import { PRODUCTS } from "@/data/products";
 
 const CATEGORY_OPTIONS: CategoryOption[] = [
-  { id: "all", label: "All Formulations" },
+  { id: "all", label: "All Products" },
   { id: "mother-baby", label: "Pediatric Care" },
   { id: "vitamins-supplements", label: "Longevity & Vitamins" },
   { id: "dermatological-skincare", label: "Clinical Dermatology" },
-  { id: "senior-care-incontinence", label: "Senior Care & Incontinence" },
-  { id: "medical-devices-diagnostic", label: "Medical Diagnostics" },
-  { id: "daily-health-otc", label: "OTC & Daily Health" },
-];
-
-const TESTIMONIALS = [
-  {
-    id: "test-1",
-    author: "Dr. Kazi Mahfuzur Rahman",
-    role: "Consultant Pediatrician",
-    location: "Baridhara DOHS, Dhaka",
-    rating: 5,
-    quote:
-      "I routinely test patient-provided Aptamil canisters against European production batches. Mitavin is the only dispensary in Dhaka whose air freight records and seal integrity consistently pass clinical standards.",
-  },
-  {
-    id: "test-2",
-    author: "Farhana Chowdhury",
-    role: "Mother of 6-Month Infant",
-    location: "Gulshan 2, Dhaka",
-    rating: 5,
-    quote:
-      "After encountering counterfeit Aveeno that triggered severe eczema, I was terrified to buy imported baby products online. Mitavin delivered authentic USA-sealed bottles within 3 hours. Completely life-changing peace of mind.",
-  },
-  {
-    id: "test-3",
-    author: "Engr. Monirul Islam",
-    role: "Senior Project Director",
-    location: "Uttara Sector 7, Dhaka",
-    rating: 5,
-    quote:
-      "My father requires monthly VivaChek Ino glucose test strips and Giggles briefs. Every single delivery comes in tamper-sealed insulated boxes with valid 2028 expiry dates.",
-  },
-  {
-    id: "test-4",
-    author: "Samira Haque",
-    role: "Architect & Mother",
-    location: "Bashundhara R/A, Dhaka",
-    rating: 5,
-    quote:
-      "Vitabiotics Pregnacare Plus Omega-3 hologram stickers verified instantly on the UK manufacturer portal. The 10x refund guarantee shows how serious Mitavin is about zero counterfeits.",
-  },
+  { id: "senior-care-incontinence", label: "Senior Care" },
+  { id: "medical-devices-diagnostic", label: "OTC & Diagnostics" },
 ];
 
 export default function MitavinStorefrontPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [testimonialIndex, setTestimonialIndex] = useState(0);
 
-  // Filter products by active category and search term
   const filteredProducts = useMemo(() => {
     return PRODUCTS.filter((product) => {
       const matchesCat =
@@ -102,7 +57,6 @@ export default function MitavinStorefrontPage() {
     });
   }, [selectedCategory, searchQuery]);
 
-  // Compute product count per category
   const categoriesWithCounts = useMemo(() => {
     return CATEGORY_OPTIONS.map((cat) => {
       if (cat.id === "all") {
@@ -113,39 +67,25 @@ export default function MitavinStorefrontPage() {
     });
   }, []);
 
-  const handleNextTestimonial = () => {
-    playHapticClick(0.06);
-    setTestimonialIndex((prev) => (prev + 1) % TESTIMONIALS.length);
-  };
-
-  const handlePrevTestimonial = () => {
-    playHapticClick(0.06);
-    setTestimonialIndex((prev) =>
-      prev === 0 ? TESTIMONIALS.length - 1 : prev - 1
-    );
-  };
-
   return (
-    <div className="min-h-screen flex flex-col bg-canvas text-ink-primary selection:bg-brand-emerald-light selection:text-ink-primary relative pb-20 md:pb-0">
-      {/* 1. Trust Bar & Sticky Navigation */}
+    <div className="min-h-screen flex flex-col bg-white text-zinc-900 selection:bg-zinc-900 selection:text-white relative pb-20 md:pb-0 font-sans">
+      {/* 1. Vercel-Style Header */}
       <Header
         onCategorySelect={(slug) => setSelectedCategory(slug)}
         onSearchClick={() => {
           const searchInput = document.querySelector(
             "#catalog-section input"
           ) as HTMLInputElement;
-          if (searchInput) {
-            searchInput.focus();
-          }
+          if (searchInput) searchInput.focus();
         }}
       />
 
-      {/* 2. Editorial Organic Hero */}
+      {/* 2. High-Tech E-Commerce Hero */}
       <HeroBanner />
 
-      {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-8 py-12 sm:py-16 space-y-20 flex-1 w-full">
-        {/* 3. Category Filter & Live Search Bar */}
+      {/* Main Container */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-8 py-10 sm:py-16 space-y-16 flex-1 w-full">
+        {/* 3. Category Filter & Live Search */}
         <section className="space-y-6">
           <CategoryFilterBar
             categories={categoriesWithCounts}
@@ -156,28 +96,28 @@ export default function MitavinStorefrontPage() {
             totalFilteredCount={filteredProducts.length}
           />
 
-          {/* 4. Responsive Product Catalog Grid */}
+          {/* 4. High-Density Razor-Sharp 4-Column Product Grid */}
           {filteredProducts.length === 0 ? (
-            <div className="py-20 text-center space-y-3 bg-card rounded-3xl border border-whisper p-8">
-              <Sparkles className="w-8 h-8 text-ink-faint mx-auto" />
-              <h3 className="font-serif text-xl font-bold text-ink-primary">
+            <div className="py-16 text-center space-y-3 bg-zinc-50 rounded-xl border border-zinc-200 p-8">
+              <Sparkles className="w-6 h-6 text-zinc-400 mx-auto" />
+              <h3 className="font-sans text-base font-semibold text-zinc-900">
                 No matching verified products found
               </h3>
-              <p className="text-xs text-ink-muted max-w-sm mx-auto">
-                Try searching for general keywords like &quot;Aptamil&quot;, &quot;Vitabiotics&quot;, &quot;Minoxidil&quot;, or reset your category filter.
+              <p className="text-xs text-zinc-500 max-w-sm mx-auto">
+                Try searching for &quot;Aptamil&quot;, &quot;Vitabiotics&quot;, &quot;Minoxidil&quot;, or reset filters.
               </p>
               <button
                 onClick={() => {
                   setSelectedCategory("all");
                   setSearchQuery("");
                 }}
-                className="px-5 py-2.5 rounded-full bg-ink-primary text-white text-xs font-semibold hover:bg-black transition-all"
+                className="px-4 py-2 rounded-md bg-zinc-950 text-white text-xs font-medium hover:bg-zinc-800 transition-colors"
               >
-                Reset Catalog Filters
+                Reset Filters
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               {filteredProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
@@ -185,180 +125,133 @@ export default function MitavinStorefrontPage() {
           )}
         </section>
 
-        {/* 5. Sourcing Transparency Section (Counterfeit Crisis vs. Mitavin Protocol) */}
-        <section className="rounded-[2.5rem] bg-card border border-whisper p-8 sm:p-12 space-y-10 shadow-elevation overflow-hidden relative">
+        {/* 5. Sleek Vercel-Style "Authenticity Guarantee & Sourcing" Banner */}
+        <section className="rounded-2xl bg-zinc-950 text-white p-8 sm:p-12 space-y-10 border border-zinc-800 shadow-elevation">
           <div className="max-w-3xl space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-emerald-subtle border border-brand-emerald/20 text-brand-emerald text-xs font-bold uppercase tracking-wider">
-              <ShieldCheck className="w-4 h-4" />
-              <span>The Mitavin Cold-Chain Standard</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800 text-zinc-300 text-xs font-mono font-medium border border-zinc-700">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <span>THE MITAVIN PROVENANCE STANDARD</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-ink-primary tracking-tight">
-              Why Direct Air Freight Sourcing Saves Lives
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white leading-tight">
+              100% Laboratory Sourced. Zero Sea Freight Heat Exposure.
             </h2>
-            <p className="text-sm sm:text-base text-ink-muted leading-relaxed font-light">
-              Over 60% of imported baby formulas and clinical skincare in Bangladesh suffer from thermal degradation during 45-day sea freight transit in humid 55°C cargo holds. Here is how Mitavin eliminates the danger.
+            <p className="text-sm text-zinc-400 leading-relaxed font-normal">
+              Most imported formulas in Bangladesh endure 45 days in 55°C cargo holds, degrading probiotics and lipids. Mitavin exclusively operates direct temperature-logged air freight from London and New York.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-            {/* The Grey Market Danger Card */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-red-50/40 border border-red-200/80 space-y-4">
-              <div className="flex items-center gap-2.5 text-scarcity-crimson font-bold text-sm">
-                <AlertTriangle className="w-5 h-5 flex-shrink-0" />
-                <span>The Unregulated Grey Market Sea Route</span>
+          {/* 4-Step Batch Verification Flow */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+            <div className="p-5 rounded-xl bg-zinc-900/80 border border-zinc-800 space-y-2">
+              <div className="flex items-center justify-between text-zinc-500 font-mono text-xs">
+                <span>STEP 01</span>
+                <Plane className="w-4 h-4 text-zinc-300" />
               </div>
-
-              <ul className="space-y-3 text-xs sm:text-sm text-ink-muted">
-                <li className="flex items-start gap-2">
-                  <span className="text-scarcity-crimson font-bold text-base leading-none">✕</span>
-                  <span>
-                    <strong>55°C Cargo Hold Baking:</strong> 6-8 weeks inside steel shipping containers cooks essential DHA, active probiotics, and infant milk fats into rancidity.
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-scarcity-crimson font-bold text-base leading-none">✕</span>
-                  <span>
-                    <strong>Untraceable Barcodes:</strong> Scraped lot numbers and counterfeit duplicate labels sold through open marketplaces with zero laboratory accountability.
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-scarcity-crimson font-bold text-base leading-none">✕</span>
-                  <span>
-                    <strong>No Temperature Logs:</strong> Zero cold-chain data loggers to prove temperature stability between customs clearance and your home.
-                  </span>
-                </li>
-              </ul>
+              <h4 className="font-semibold text-sm text-white">
+                Direct Air Freight
+              </h4>
+              <p className="text-xs text-zinc-400 leading-relaxed">
+                Flown directly from London Heathrow &amp; New York JFK to Dhaka within 48 hours.
+              </p>
             </div>
 
-            {/* The Mitavin Authentic Air Protocol */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-brand-emerald-subtle/80 border border-brand-emerald/30 space-y-4 shadow-whisper">
-              <div className="flex items-center gap-2.5 text-brand-emerald font-bold text-sm">
-                <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
-                <span>The Mitavin Verified Air Protocol</span>
+            <div className="p-5 rounded-xl bg-zinc-900/80 border border-zinc-800 space-y-2">
+              <div className="flex items-center justify-between text-zinc-500 font-mono text-xs">
+                <span>STEP 02</span>
+                <ThermometerSnowflake className="w-4 h-4 text-emerald-400" />
               </div>
-
-              <ul className="space-y-3 text-xs sm:text-sm text-emerald-950">
-                <li className="flex items-start gap-2">
-                  <span className="text-brand-emerald font-bold text-base leading-none">✓</span>
-                  <span>
-                    <strong>Direct Passenger & Cargo Air Freight:</strong> 48-hour flight from London Heathrow or JFK directly into Dhaka with sealed thermal telemetry.
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-brand-emerald font-bold text-base leading-none">✓</span>
-                  <span>
-                    <strong>Tamper Hologram Verification:</strong> Every box of Vitabiotics, Aptamil, or CeraVe carries authentic brand barcodes verifiable on official manufacturer portals.
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-brand-emerald font-bold text-base leading-none">✓</span>
-                  <span>
-                    <strong>10x Authenticity Refund Guarantee:</strong> If any formulation from Mitavin is proven counterfeit by laboratory analysis, we refund ten times the purchase price.
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* 6. Customer & Physician Testimonials Carousel */}
-        <section className="space-y-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <div className="space-y-1">
-              <div className="text-xs font-bold uppercase tracking-widest text-brand-champagne">
-                Clinical Endorsements & Real Families
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-ink-primary">
-                Trusted by Dhaka&apos;s Leading Physicians
-              </h2>
+              <h4 className="font-semibold text-sm text-white">
+                Cold-Chain Logged
+              </h4>
+              <p className="text-xs text-zinc-400 leading-relaxed">
+                2°C–8°C continuous thermal telemetry shields sensitive probiotics and active enzymes.
+              </p>
             </div>
 
-            <div className="flex items-center gap-2">
-              <button
-                onClick={handlePrevTestimonial}
-                className="p-3 rounded-full border border-whisper bg-card text-ink-muted hover:text-ink-primary hover:border-brand-emerald active:scale-95 transition-all shadow-whisper"
-                aria-label="Previous Testimonial"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                onClick={handleNextTestimonial}
-                className="p-3 rounded-full border border-whisper bg-card text-ink-muted hover:text-ink-primary hover:border-brand-emerald active:scale-95 transition-all shadow-whisper"
-                aria-label="Next Testimonial"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
+            <div className="p-5 rounded-xl bg-zinc-900/80 border border-zinc-800 space-y-2">
+              <div className="flex items-center justify-between text-zinc-500 font-mono text-xs">
+                <span>STEP 03</span>
+                <Barcode className="w-4 h-4 text-zinc-300" />
+              </div>
+              <h4 className="font-semibold text-sm text-white">
+                Barcode Traceability
+              </h4>
+              <p className="text-xs text-zinc-400 leading-relaxed">
+                Every tin and bottle retains its factory serial code, verifiable on official brand portals.
+              </p>
+            </div>
+
+            <div className="p-5 rounded-xl bg-zinc-900/80 border border-zinc-800 space-y-2">
+              <div className="flex items-center justify-between text-zinc-500 font-mono text-xs">
+                <span>STEP 04</span>
+                <Truck className="w-4 h-4 text-emerald-400" />
+              </div>
+              <h4 className="font-semibold text-sm text-white">
+                Dhaka Express
+              </h4>
+              <p className="text-xs text-zinc-400 leading-relaxed">
+                Insulated climate-controlled dispatch across Dhaka Metro in under 4 hours.
+              </p>
             </div>
           </div>
 
-          <div className="relative rounded-[2.5rem] bg-card border border-whisper p-8 sm:p-12 shadow-whisper overflow-hidden">
-            <Quote className="w-16 h-16 text-brand-emerald/10 absolute -bottom-2 right-6 pointer-events-none" />
-
-            <div className="max-w-3xl space-y-6">
-              <div className="flex items-center gap-1 text-amber-500">
-                {[...Array(TESTIMONIALS[testimonialIndex].rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-amber-400" />
-                ))}
-              </div>
-
-              <blockquote className="text-lg sm:text-2xl font-serif italic text-ink-primary leading-relaxed">
-                &ldquo;{TESTIMONIALS[testimonialIndex].quote}&rdquo;
-              </blockquote>
-
-              <div className="flex items-center gap-3 pt-2">
-                <div className="w-10 h-10 rounded-full bg-brand-emerald text-white flex items-center justify-center font-bold text-sm shadow-sm">
-                  {TESTIMONIALS[testimonialIndex].author[0]}
-                </div>
-                <div>
-                  <div className="font-bold text-sm text-ink-primary">
-                    {TESTIMONIALS[testimonialIndex].author}
-                  </div>
-                  <div className="text-xs text-ink-muted">
-                    {TESTIMONIALS[testimonialIndex].role} • {TESTIMONIALS[testimonialIndex].location}
-                  </div>
-                </div>
+          {/* 10x Refund Guarantee Footer */}
+          <div className="p-4 rounded-xl bg-zinc-900 border border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+              <div className="text-xs text-zinc-300">
+                <strong className="text-white">10x Money-Back Guarantee:</strong> If any SKU is proven counterfeit by laboratory analysis, we refund ten times your purchase price.
               </div>
             </div>
+
+            <a
+              href="https://wa.me/8801978303867?text=Hello%20Mitavin%20Team,%20I%20would%20like%20to%20verify%20a%20batch."
+              target="_blank"
+              rel="noreferrer"
+              className="px-4 py-2 rounded-lg bg-white text-zinc-950 font-medium text-xs hover:bg-zinc-100 transition-colors whitespace-nowrap"
+            >
+              Verify Batch with Pharmacist
+            </a>
           </div>
         </section>
       </main>
 
-      {/* 7. Comprehensive Luxury Dispensary Footer */}
-      <footer className="bg-card border-t border-whisper pt-16 pb-12 mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-            {/* Col 1: Brand & Authenticity */}
-            <div className="lg:col-span-2 space-y-4">
-              <div className="flex items-center gap-1.5">
-                <span className="font-serif text-2xl sm:text-3xl font-extrabold tracking-tight text-ink-primary">
+      {/* 6. Minimalist Vercel-Style Footer */}
+      <footer className="bg-zinc-50 border-t border-zinc-200 pt-12 pb-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 text-xs">
+            {/* Brand & Statement */}
+            <div className="lg:col-span-2 space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="font-sans text-xl font-bold tracking-tight text-zinc-950">
                   MITAVIN
                 </span>
-                <span className="flex h-2 w-2 rounded-full bg-brand-emerald" />
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
               </div>
-              <p className="text-xs sm:text-sm text-ink-muted leading-relaxed font-light max-w-sm">
-                Mitavin is Bangladesh’s premier clinical longevity and verified healthcare dispensary. All formulas are temperature-tracked and directly air-freighted from British and American laboratories.
+              <p className="text-zinc-500 leading-relaxed max-w-sm">
+                The authentic longevity &amp; pediatric dispensary in Dhaka. 100% genuine UK &amp; USA health formulations, direct air-freighted with continuous thermal telemetry.
               </p>
-              <div className="flex items-center gap-2 text-xs text-emerald-900 font-semibold">
-                <ShieldCheck className="w-4 h-4 text-brand-emerald" />
-                <span>10x Authenticity Refund Guarantee Enforced</span>
+              <div className="flex items-center gap-2 text-[11px] font-mono text-zinc-600">
+                <Lock className="w-3 h-3 text-emerald-600" />
+                <span>256-Bit SSL Encrypted Healthcare Fulfillment</span>
               </div>
             </div>
 
-            {/* Col 2: Curated Categories */}
-            <div className="space-y-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-ink-primary">
-                Formulation Sectors
-              </h4>
-              <ul className="space-y-2 text-xs text-ink-muted">
+            {/* Quick Links */}
+            <div className="space-y-2.5">
+              <div className="font-semibold text-zinc-900 uppercase tracking-wider text-[11px] font-mono">
+                Categories
+              </div>
+              <ul className="space-y-2 text-zinc-600">
                 <li>
                   <button
                     onClick={() => {
                       setSelectedCategory("mother-baby");
                       document.getElementById("catalog-section")?.scrollIntoView({ behavior: "smooth" });
                     }}
-                    className="hover:text-brand-emerald transition-colors"
+                    className="hover:text-zinc-900 transition-colors"
                   >
-                    Pediatric Nutrition & Care
+                    Pediatric Nutrition &amp; Care
                   </button>
                 </li>
                 <li>
@@ -367,9 +260,9 @@ export default function MitavinStorefrontPage() {
                       setSelectedCategory("vitamins-supplements");
                       document.getElementById("catalog-section")?.scrollIntoView({ behavior: "smooth" });
                     }}
-                    className="hover:text-brand-emerald transition-colors"
+                    className="hover:text-zinc-900 transition-colors"
                   >
-                    Longevity & Multivitamins
+                    Longevity &amp; Multivitamins
                   </button>
                 </li>
                 <li>
@@ -378,7 +271,7 @@ export default function MitavinStorefrontPage() {
                       setSelectedCategory("dermatological-skincare");
                       document.getElementById("catalog-section")?.scrollIntoView({ behavior: "smooth" });
                     }}
-                    className="hover:text-brand-emerald transition-colors"
+                    className="hover:text-zinc-900 transition-colors"
                   >
                     Clinical Dermatology
                   </button>
@@ -389,98 +282,84 @@ export default function MitavinStorefrontPage() {
                       setSelectedCategory("senior-care-incontinence");
                       document.getElementById("catalog-section")?.scrollIntoView({ behavior: "smooth" });
                     }}
-                    className="hover:text-brand-emerald transition-colors"
+                    className="hover:text-zinc-900 transition-colors"
                   >
-                    Senior Care & Diapers
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => {
-                      setSelectedCategory("medical-devices-diagnostic");
-                      document.getElementById("catalog-section")?.scrollIntoView({ behavior: "smooth" });
-                    }}
-                    className="hover:text-brand-emerald transition-colors"
-                  >
-                    Diabetic & Diagnostics
+                    Senior Incontinence Care
                   </button>
                 </li>
               </ul>
             </div>
 
-            {/* Col 3: Direct Pharmacist Consultation */}
-            <div className="space-y-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-ink-primary">
-                Clinical Helpdesk
-              </h4>
-              <ul className="space-y-2.5 text-xs text-ink-muted">
+            {/* Contact & Pharmacist */}
+            <div className="space-y-2.5">
+              <div className="font-semibold text-zinc-900 uppercase tracking-wider text-[11px] font-mono">
+                Dispensary Hub
+              </div>
+              <ul className="space-y-2 text-zinc-600">
                 <li className="flex items-center gap-2">
-                  <PhoneCall className="w-3.5 h-3.5 text-brand-emerald" />
-                  <a href="tel:+8801978303867" className="hover:text-ink-primary font-mono">
+                  <PhoneCall className="w-3.5 h-3.5 text-zinc-500" />
+                  <a href="tel:+8801978303867" className="hover:text-zinc-900 font-mono">
                     +880 1978 303867
                   </a>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Mail className="w-3.5 h-3.5 text-brand-emerald" />
-                  <a href="mailto:care@mitavin.com" className="hover:text-ink-primary">
+                  <Mail className="w-3.5 h-3.5 text-zinc-500" />
+                  <a href="mailto:care@mitavin.com" className="hover:text-zinc-900">
                     care@mitavin.com
                   </a>
                 </li>
                 <li className="flex items-start gap-2">
-                  <MapPin className="w-3.5 h-3.5 text-brand-emerald flex-shrink-0 mt-0.5" />
-                  <span>House 12, Road 4, Gulshan-1, Dhaka 1212, Bangladesh</span>
+                  <MapPin className="w-3.5 h-3.5 text-zinc-500 flex-shrink-0 mt-0.5" />
+                  <span>Gulshan-1, Dhaka 1212, Bangladesh</span>
                 </li>
               </ul>
             </div>
 
-            {/* Col 4: Verified Payment Rails */}
-            <div className="space-y-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-ink-primary">
-                Fulfillment & Payments
-              </h4>
-              <p className="text-xs text-ink-muted leading-relaxed">
-                Same-day insulated cold delivery inside Dhaka Metro. Guaranteed cash on delivery or encrypted mobile payment.
+            {/* Payment Badges */}
+            <div className="space-y-2.5">
+              <div className="font-semibold text-zinc-900 uppercase tracking-wider text-[11px] font-mono">
+                Payment Channels
+              </div>
+              <p className="text-zinc-500">
+                Same-day insulated cold delivery inside Dhaka Metro. Cash on delivery or encrypted mobile payment.
               </p>
-              <div className="flex flex-wrap gap-2 pt-1">
-                <span className="px-2.5 py-1 rounded-md bg-canvas border border-whisper text-[10px] font-bold text-pink-700">
+              <div className="flex flex-wrap gap-1.5 pt-1">
+                <span className="px-2 py-0.5 rounded border border-zinc-200 bg-white font-mono font-medium text-[10px] text-pink-700">
                   bKash
                 </span>
-                <span className="px-2.5 py-1 rounded-md bg-canvas border border-whisper text-[10px] font-bold text-orange-600">
+                <span className="px-2 py-0.5 rounded border border-zinc-200 bg-white font-mono font-medium text-[10px] text-orange-600">
                   Nagad
                 </span>
-                <span className="px-2.5 py-1 rounded-md bg-canvas border border-whisper text-[10px] font-bold text-blue-700">
+                <span className="px-2 py-0.5 rounded border border-zinc-200 bg-white font-mono font-medium text-[10px] text-blue-700">
                   VISA
                 </span>
-                <span className="px-2.5 py-1 rounded-md bg-canvas border border-whisper text-[10px] font-bold text-red-600">
+                <span className="px-2 py-0.5 rounded border border-zinc-200 bg-white font-mono font-medium text-[10px] text-red-600">
                   Mastercard
                 </span>
-                <span className="px-2.5 py-1 rounded-md bg-canvas border border-whisper text-[10px] font-bold text-emerald-800">
+                <span className="px-2 py-0.5 rounded border border-zinc-200 bg-white font-mono font-medium text-[10px] text-zinc-800">
                   COD
                 </span>
               </div>
             </div>
           </div>
 
-          <div className="pt-8 border-t border-whisper flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-faint">
+          <div className="pt-6 border-t border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-zinc-400">
             <div>
               &copy; {new Date().getFullYear()} Mitavin Healthcare Laboratories Ltd. All rights reserved.
             </div>
-            <div className="flex items-center gap-4 text-xs">
-              <span className="flex items-center gap-1 text-ink-muted">
-                <Lock className="w-3 h-3 text-brand-emerald" />
-                256-Bit SSL Encrypted Healthcare Fulfillment
-              </span>
+            <div className="font-mono text-zinc-500">
+              Vercel Design Language • Stark Luxury Standard
             </div>
           </div>
         </div>
       </footer>
 
-      {/* 8. Global Modals & Drawers */}
+      {/* Global Modals & Drawers */}
       <CartDrawer />
       <CheckoutModal />
       <QuickViewModal />
 
-      {/* 9. Mobile Bottom Dock */}
+      {/* Mobile Bottom Dock */}
       <MobileBottomNav
         onCategoryClick={() => {
           document.getElementById("catalog-section")?.scrollIntoView({ behavior: "smooth" });
