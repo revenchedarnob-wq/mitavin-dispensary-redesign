@@ -336,3 +336,5 @@ export const useStore = create<StoreState>()(
     }
   )
 );
+
+export const useCartStore = useStore;
