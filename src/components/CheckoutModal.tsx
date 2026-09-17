@@ -18,7 +18,8 @@ import {
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { useStore } from "@/lib/store";
-import { playHapticClick, playHapticSuccess } from "@/lib/sound";
+import { playHapticClick, playHapticGlass, playHapticSuccess } from "@/lib/sound";
+import { triggerSpark } from "@/components/ClickSpark";
 import { submitOrder, OrderPayload } from "@/lib/api";
 import { formatBDT } from "@/lib/utils";
 
@@ -65,8 +66,12 @@ export function CheckoutModal() {
     }
   };
 
-  const handleCopyBkash = () => {
-    playHapticClick(0.07);
+  const handleCopyBkash = (e?: React.MouseEvent) => {
+    playHapticGlass(0.08);
+    const x = e?.clientX || (typeof window !== "undefined" ? window.innerWidth / 2 : 0);
+    const y = e?.clientY || (typeof window !== "undefined" ? window.innerHeight / 2 : 0);
+    triggerSpark(x, y, "#10B981", 10, 24);
+
     navigator.clipboard.writeText(BKASH_MERCHANT_NUMBER);
     setCopiedNumber(true);
     setTimeout(() => setCopiedNumber(false), 2000);
@@ -131,6 +136,15 @@ export function CheckoutModal() {
       setIsSubmitting(false);
       if (response.success) {
         playHapticSuccess(0.18);
+        if (typeof window !== "undefined") {
+          triggerSpark(
+            window.innerWidth / 2,
+            window.innerHeight * 0.45,
+            "#10B981",
+            16,
+            36
+          );
+        }
         confetti({
           particleCount: 80,
           spread: 70,

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { useStore } from "@/lib/store";
 import { playHapticClick, playHapticGlass, playHapticPop } from "@/lib/sound";
+import { triggerSpark } from "@/components/ClickSpark";
 import { formatBDT } from "@/lib/utils";
 
 export function CartDrawer() {
@@ -48,6 +49,22 @@ export function CartDrawer() {
   const isFreeDelivery = subtotal >= 2000;
   const deliveryFee = isFreeDelivery ? 0 : 60;
   const grandTotal = Math.max(0, subtotal - discountBDT + deliveryFee);
+
+  const hasCelebratedThreshold = useRef<boolean>(false);
+
+  useEffect(() => {
+    if (subtotal >= 2000) {
+      if (!hasCelebratedThreshold.current && isCartOpen) {
+        hasCelebratedThreshold.current = true;
+        playHapticGlass(0.12);
+        if (typeof window !== "undefined") {
+          triggerSpark(window.innerWidth - 200, 160, "#10B981", 12, 32);
+        }
+      }
+    } else {
+      hasCelebratedThreshold.current = false;
+    }
+  }, [subtotal, isCartOpen]);
 
   const handleClose = () => {
     playHapticClick(0.06);
@@ -122,31 +139,45 @@ export function CartDrawer() {
               </div>
 
               {/* Free Delivery Progress Bar */}
-              <div className="p-3.5 bg-zinc-50 border-b border-zinc-200 space-y-1.5">
+              <div
+                className={`p-3.5 border-b space-y-1.5 transition-all duration-300 ${
+                  isFreeDelivery
+                    ? "bg-emerald-50/70 border-emerald-200 text-emerald-950 shadow-xs"
+                    : "bg-zinc-50 border-zinc-200 text-zinc-700"
+                }`}
+              >
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-medium text-zinc-700 flex items-center gap-1.5">
+                  <span className="font-medium flex items-center gap-1.5">
                     {isFreeDelivery ? (
                       <>
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                        <span className="text-zinc-900 font-semibold">Free Delivery unlocked in Dhaka Metro</span>
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 animate-pulse flex-shrink-0" />
+                        <span className="font-semibold text-emerald-950">
+                          🎉 Free Dhaka Express Delivery Unlocked!
+                        </span>
                       </>
                     ) : (
                       <>
-                        <Package className="w-3.5 h-3.5 text-zinc-500" />
+                        <Package className="w-3.5 h-3.5 text-zinc-500 flex-shrink-0" />
                         <span>
                           Add <strong className="text-zinc-950 font-mono">{formatBDT(remainingForFreeDelivery)}</strong> for free delivery
                         </span>
                       </>
                     )}
                   </span>
-                  <span className="font-mono text-[11px] font-medium text-zinc-500">
+                  <span
+                    className={`font-mono text-[11px] font-medium ${
+                      isFreeDelivery ? "text-emerald-700 font-semibold" : "text-zinc-500"
+                    }`}
+                  >
                     {deliveryProgress}%
                   </span>
                 </div>
 
                 <div className="w-full h-1.5 rounded-full bg-zinc-200 overflow-hidden">
                   <motion.div
-                    className="h-full bg-zinc-950 rounded-full"
+                    className={`h-full rounded-full transition-colors duration-300 ${
+                      isFreeDelivery ? "bg-emerald-600" : "bg-zinc-950"
+                    }`}
                     initial={{ width: 0 }}
                     animate={{ width: `${deliveryProgress}%` }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
