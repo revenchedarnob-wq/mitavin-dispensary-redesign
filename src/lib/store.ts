@@ -18,13 +18,17 @@ export interface StoreState {
   // Cart state
   items: CartItem[];
   freeDeliveryThreshold: number;
+  promoCode: string | null;
+  discountBDT: number;
 
   // UI Drawer & Modal states
   isCartOpen: boolean;
   isSearchOpen: boolean;
   isQuickViewOpen: boolean;
+  isCheckoutOpen: boolean;
   activeQuickViewProduct: Product | null;
   soundEnabled: boolean;
+  lastAddedItemId: string | null;
 
   // Cart Actions
   addItem: (product: Product, quantity?: number) => void;
@@ -32,6 +36,8 @@ export interface StoreState {
   updateQuantity: (productId: string, delta: number) => void;
   setQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
+  applyPromoCode: (code: string) => boolean;
+  removePromoCode: () => void;
 
   // UI Actions
   setCartOpen: (open: boolean) => void;
@@ -39,13 +45,18 @@ export interface StoreState {
   setSearchOpen: (open: boolean) => void;
   toggleSearch: () => void;
   setQuickViewOpen: (open: boolean, product?: Product | null) => void;
+  openQuickView: (product: Product) => void;
   closeQuickView: () => void;
+  setCheckoutOpen: (open: boolean) => void;
+  toggleCheckout: () => void;
   setSoundEnabled: (enabled: boolean) => void;
   toggleSoundEnabled: () => void;
 
   // Computed Helpers
   getSubtotal: () => number;
   getTotalItems: () => number;
+  getDiscountAmount: () => number;
+  getFinalTotal: (deliveryFee?: number) => number;
   getFreeDeliveryRemaining: () => number;
   getFreeDeliveryProgress: () => number;
 }
@@ -57,17 +68,21 @@ export const useStore = create<StoreState>()(
     (set, get) => ({
       items: [],
       freeDeliveryThreshold: FREE_DELIVERY_THRESHOLD_BDT,
+      promoCode: null,
+      discountBDT: 0,
 
       isCartOpen: false,
       isSearchOpen: false,
       isQuickViewOpen: false,
+      isCheckoutOpen: false,
       activeQuickViewProduct: null,
       soundEnabled: typeof window !== "undefined" ? !isSoundMuted() : true,
+      lastAddedItemId: null,
 
       addItem: (product: Product, quantity = 1) => {
         if (quantity <= 0) return;
 
-        playHapticPop(0.12);
+        playHapticPop(0.14);
 
         set((state) => {
           const existingIndex = state.items.findIndex(
@@ -85,7 +100,11 @@ export const useStore = create<StoreState>()(
               ...currentItem,
               quantity: nextQty,
             };
-            return { items: updatedItems, isCartOpen: true };
+            return {
+              items: updatedItems,
+              isCartOpen: true,
+              lastAddedItemId: product.id,
+            };
           }
 
           return {
@@ -97,6 +116,7 @@ export const useStore = create<StoreState>()(
               },
             ],
             isCartOpen: true,
+            lastAddedItemId: product.id,
           };
         });
       },
@@ -163,7 +183,25 @@ export const useStore = create<StoreState>()(
 
       clearCart: () => {
         playHapticClick(0.08);
-        set({ items: [] });
+        set({ items: [], promoCode: null, discountBDT: 0 });
+      },
+
+      applyPromoCode: (code: string) => {
+        const cleanCode = code.trim().toUpperCase();
+        if (cleanCode === "MITAVIN10") {
+          playHapticPop(0.12);
+          const subtotal = get().getSubtotal();
+          const discount = Math.round(subtotal * 0.1);
+          set({ promoCode: "MITAVIN10", discountBDT: discount });
+          return true;
+        }
+        playHapticClick(0.06);
+        return false;
+      },
+
+      removePromoCode: () => {
+        playHapticClick(0.06);
+        set({ promoCode: null, discountBDT: 0 });
       },
 
       setCartOpen: (open: boolean) => {
@@ -206,12 +244,30 @@ export const useStore = create<StoreState>()(
         });
       },
 
+      openQuickView: (product: Product) => {
+        get().setQuickViewOpen(true, product);
+      },
+
       closeQuickView: () => {
         playHapticClick(0.06);
         set({
           isQuickViewOpen: false,
           activeQuickViewProduct: null,
         });
+      },
+
+      setCheckoutOpen: (open: boolean) => {
+        if (open) {
+          playHapticGlass(0.08);
+        } else {
+          playHapticClick(0.06);
+        }
+        set({ isCheckoutOpen: open });
+      },
+
+      toggleCheckout: () => {
+        const next = !get().isCheckoutOpen;
+        get().setCheckoutOpen(next);
       },
 
       setSoundEnabled: (enabled: boolean) => {
@@ -241,6 +297,21 @@ export const useStore = create<StoreState>()(
         return items.reduce((sum, item) => sum + item.quantity, 0);
       },
 
+      getDiscountAmount: () => {
+        const subtotal = get().getSubtotal();
+        if (get().promoCode === "MITAVIN10") {
+          return Math.round(subtotal * 0.1);
+        }
+        return get().discountBDT;
+      },
+
+      getFinalTotal: (deliveryFee = 60) => {
+        const subtotal = get().getSubtotal();
+        const discount = get().getDiscountAmount();
+        const effectiveDelivery = subtotal >= FREE_DELIVERY_THRESHOLD_BDT ? 0 : deliveryFee;
+        return Math.max(0, subtotal - discount + effectiveDelivery);
+      },
+
       getFreeDeliveryRemaining: () => {
         const subtotal = get().getSubtotal();
         const threshold = get().freeDeliveryThreshold;
@@ -260,6 +331,7 @@ export const useStore = create<StoreState>()(
       partialize: (state) => ({
         items: state.items,
         soundEnabled: state.soundEnabled,
+        promoCode: state.promoCode,
       }),
     }
   )

@@ -112,3 +112,16 @@ The adapter abstracts all data queries:
   - Implemented dual-backend API layer in `src/lib/api.ts`.
   - Sourced verified high-resolution photography in `src/lib/media.ts` and editorial copy in `src/lib/copy.ts`.
   - Verified compilation with Next.js 15 and TypeScript.
+
+- **v0.2.0-beta (Phase 2 Storefront UI & Conversion Engine)**:
+  - Built `Header.tsx` with top trust bar, hotline `+880 1978 303867`, audio mute toggle, live search trigger with `Cmd+K` shortcut, category links, and live cart item count badge with pulse animation.
+  - Created `HeroBanner.tsx` featuring Editorial Organic layout (Archetype A), 4 verified trust badges (10x money-back guarantee, same-day delivery, pharmacist inspection, 7-day returns), and luxury featured product showcase card.
+  - Built `CategoryFilterBar.tsx` with Framer Motion `layoutId="activeCategoryPill"`, live search query input, and horizontal mobile pill scroll.
+  - Engineered `ProductCard.tsx` with origin pills, scarcity warnings ("Only X left in Dhaka"), zoom hover, BDT pricing, and direct quick-view & add-to-cart triggers.
+  - Developed `CartDrawer.tsx` slide-over with dynamic Dhaka delivery progress meter (৳2,000 threshold), quantity micro-steppers, and MITAVIN10 promo code engine.
+  - Implemented `CheckoutModal.tsx` 1-step express checkout with COD, bKash 1-click copy, outside Dhaka toggle, and WhatsApp receipt generator.
+  - Created `QuickViewModal.tsx` with clinical specs, authentic seals, and quantity steppers.
+  - Created `MobileBottomNav.tsx` thumb-dock with cart counter badge and direct WhatsApp consultation.
+  - Integrated `SmoothScroll.tsx` utilizing Lenis for luxury 120 FPS momentum scrolling.
+  - Assembled comprehensive homepage `src/app/page.tsx` including cold-chain transparency section, physician testimonials carousel, and clinical footer.
+
