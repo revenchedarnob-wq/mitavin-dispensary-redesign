@@ -2,24 +2,17 @@
 
 import React, { useState, useMemo } from "react";
 import {
-  ShieldCheck,
-  Plane,
-  ThermometerSnowflake,
   Sparkles,
   PhoneCall,
   Mail,
   MapPin,
   Lock,
-  ArrowRight,
-  CheckCircle2,
-  FileCheck,
-  Barcode,
-  Truck,
 } from "lucide-react";
 import { Header } from "@/components/Header";
 import { HeroBanner } from "@/components/HeroBanner";
 import { CategoryFilterBar, CategoryOption } from "@/components/CategoryFilterBar";
 import { ProductCard } from "@/components/ProductCard";
+import { ProvenanceBento } from "@/components/ProvenanceBento";
 import { CartDrawer } from "@/components/CartDrawer";
 import { CheckoutModal } from "@/components/CheckoutModal";
 import { QuickViewModal } from "@/components/QuickViewModal";
@@ -125,95 +118,8 @@ export default function MitavinStorefrontPage() {
           )}
         </section>
 
-        {/* 5. Sleek Vercel-Style "Authenticity Guarantee & Sourcing" Banner */}
-        <section className="rounded-2xl bg-zinc-950 text-white p-8 sm:p-12 space-y-10 border border-zinc-800 shadow-elevation">
-          <div className="max-w-3xl space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800 text-zinc-300 text-xs font-mono font-medium border border-zinc-700">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>THE MITAVIN PROVENANCE STANDARD</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white leading-tight">
-              100% Laboratory Sourced. Zero Sea Freight Heat Exposure.
-            </h2>
-            <p className="text-sm text-zinc-400 leading-relaxed font-normal">
-              Most imported formulas in Bangladesh endure 45 days in 55°C cargo holds, degrading probiotics and lipids. Mitavin exclusively operates direct temperature-logged air freight from London and New York.
-            </p>
-          </div>
-
-          {/* 4-Step Batch Verification Flow */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
-            <div className="p-5 rounded-xl bg-zinc-900/80 border border-zinc-800 space-y-2">
-              <div className="flex items-center justify-between text-zinc-500 font-mono text-xs">
-                <span>STEP 01</span>
-                <Plane className="w-4 h-4 text-zinc-300" />
-              </div>
-              <h4 className="font-semibold text-sm text-white">
-                Direct Air Freight
-              </h4>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                Flown directly from London Heathrow &amp; New York JFK to Dhaka within 48 hours.
-              </p>
-            </div>
-
-            <div className="p-5 rounded-xl bg-zinc-900/80 border border-zinc-800 space-y-2">
-              <div className="flex items-center justify-between text-zinc-500 font-mono text-xs">
-                <span>STEP 02</span>
-                <ThermometerSnowflake className="w-4 h-4 text-emerald-400" />
-              </div>
-              <h4 className="font-semibold text-sm text-white">
-                Cold-Chain Logged
-              </h4>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                2°C–8°C continuous thermal telemetry shields sensitive probiotics and active enzymes.
-              </p>
-            </div>
-
-            <div className="p-5 rounded-xl bg-zinc-900/80 border border-zinc-800 space-y-2">
-              <div className="flex items-center justify-between text-zinc-500 font-mono text-xs">
-                <span>STEP 03</span>
-                <Barcode className="w-4 h-4 text-zinc-300" />
-              </div>
-              <h4 className="font-semibold text-sm text-white">
-                Barcode Traceability
-              </h4>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                Every tin and bottle retains its factory serial code, verifiable on official brand portals.
-              </p>
-            </div>
-
-            <div className="p-5 rounded-xl bg-zinc-900/80 border border-zinc-800 space-y-2">
-              <div className="flex items-center justify-between text-zinc-500 font-mono text-xs">
-                <span>STEP 04</span>
-                <Truck className="w-4 h-4 text-emerald-400" />
-              </div>
-              <h4 className="font-semibold text-sm text-white">
-                Dhaka Express
-              </h4>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                Insulated climate-controlled dispatch across Dhaka Metro in under 4 hours.
-              </p>
-            </div>
-          </div>
-
-          {/* 10x Refund Guarantee Footer */}
-          <div className="p-4 rounded-xl bg-zinc-900 border border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
-              <div className="text-xs text-zinc-300">
-                <strong className="text-white">10x Money-Back Guarantee:</strong> If any SKU is proven counterfeit by laboratory analysis, we refund ten times your purchase price.
-              </div>
-            </div>
-
-            <a
-              href="https://wa.me/8801978303867?text=Hello%20Mitavin%20Team,%20I%20would%20like%20to%20verify%20a%20batch."
-              target="_blank"
-              rel="noreferrer"
-              className="px-4 py-2 rounded-lg bg-white text-zinc-950 font-medium text-xs hover:bg-zinc-100 transition-colors whitespace-nowrap"
-            >
-              Verify Batch with Pharmacist
-            </a>
-          </div>
-        </section>
+        {/* 5. Interactive 3D Gyro Provenance Bento Grid with 1-Click Batch Verifier */}
+        <ProvenanceBento />
       </main>
 
       {/* 6. Minimalist Vercel-Style Footer */}
